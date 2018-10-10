@@ -28,7 +28,7 @@ To get started with the content:
 
 ```sql
 select *
-  from voter_answer as answer
+  from voter_answers as answer
   left join voter_questions question
     on answer.question_id = question.id
   left join voters voter
