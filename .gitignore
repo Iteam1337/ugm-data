@@ -1,0 +1,4 @@
+test.db
+*.pyc
+data
+__pyca*
