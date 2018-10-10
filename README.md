@@ -22,3 +22,16 @@ python3 to-sqlite.py data/urban-girls-movement-labb-1.xlsx
 ```
 
 At the moment it only creates/updates a sqlite-db called test.db in the project root
+
+
+To get started with the content:
+
+```sql
+select *
+  from voter_answer as answer
+  left join voter_questions question
+    on answer.question_id = question.id
+  left join voters voter
+    on answer.voter_id = voter.id
+  order by voter.id;
+```

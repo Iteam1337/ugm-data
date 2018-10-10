@@ -86,8 +86,7 @@ CREATE TABLE IF NOT EXISTS
   id INTEGER PRIMARY KEY,
   question TEXT NOT NULL,
   question_type CHAR(2),
-  FOREIGN KEY (question_type) REFERENCES questions(id),
-  UNIQUE (question) ON CONFLICT REPLACE
+  FOREIGN KEY (question_type) REFERENCES questions(id)
 )
     ''',
     '''
