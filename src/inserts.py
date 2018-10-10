@@ -98,7 +98,7 @@ def insert_voters(voters):
         for i in range(1, len(answers) - 1):
             con.execute('''
             INSERT OR IGNORE INTO
-                voter_answer
+                voter_answers
                     (response, voter_id, question_id)
             VALUES
                 (?, ?, ?)

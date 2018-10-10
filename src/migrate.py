@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS
     ''',
     '''
 CREATE TABLE IF NOT EXISTS
-  voter_answer
+  voter_answers
 (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   response TEXT DEFAULT '',
