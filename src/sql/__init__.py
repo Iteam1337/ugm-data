@@ -1,7 +1,7 @@
 __all__ = [
     'transactions',
     'close_connection',
-    'con'
+    'DB_CON',
 ]
 
-from .transactions import (transactions, close_connection, con)
+from .transactions import (transactions, close_connection, DB_CON)

@@ -5,7 +5,7 @@ class SqlQAnswer():
         self.votes = votes
         self.response = response
 
-    def __str__(self):
+    def print(self):
         return '{}'.format({
             'question_type': self.question_type,
             'choice': self.choice,
@@ -13,8 +13,12 @@ class SqlQAnswer():
             'response': self.response,
         })
 
+    def __str__(self):
+        return self.print()
+
     def __repr__(self):
         return self.__str__()
+
 
 class QuestionType():
     types = {
@@ -29,7 +33,7 @@ class QuestionType():
     def __init__(self, question_type):
         self.type = question_type
 
-    def add_answer(self, q, a):
+    def add_answer(self, _question, _answer):
         return NotImplemented
 
     def get_answers(self):
@@ -41,8 +45,9 @@ class QuestionType():
     def __repr__(self):
         return self.__str__()
 
+
 class Choices(QuestionType):
-    def __init__(self, question_type = 'choices'):
+    def __init__(self, question_type='choices'):
         self.votes = {}
         super().__init__(question_type)
 
@@ -68,12 +73,15 @@ class Choices(QuestionType):
 
         return answers
 
+
 class ChoicesImages(Choices):
-    def __init__(self, question_type = 'choices_images'):
+    def __init__(self, question_type='choices_images'):
+        self.votes = {}
         super().__init__(question_type)
 
+
 class Wordcloud(QuestionType):
-    def __init__(self, question_type = 'wordcloud'):
+    def __init__(self, question_type='wordcloud'):
         super().__init__(question_type)
 
         self.responses = []
@@ -85,29 +93,30 @@ class Wordcloud(QuestionType):
         self.responses.append(str(q))
 
     def get_answers(self):
-        question_type = self.get_type()
-        return list(map(lambda response: SqlQAnswer(question_type, response = response), self.responses))
+        q_type = self.get_type()
+        return list(map(lambda response: SqlQAnswer(q_type, response=response), self.responses))
 
 
 class Slide(QuestionType):
-    def __init__(self, question_type = 'slide'):
+    def __init__(self, question_type='slide'):
+        self.responses = []
         super().__init__(question_type)
 
 
-types = {
+TYPES = {
     'choices': Choices,
     'choices_images': ChoicesImages,
     'wordcloud': Wordcloud,
 }
 
 
-def get_question_type (question_type):
+def get_question_type(question_type):
     if not question_type:
         return None
 
     question_type_str = str(question_type)
 
-    if question_type_str in types:
-        return types[question_type_str]()
+    if question_type_str in TYPES:
+        return TYPES[question_type_str]()
 
     return None

@@ -1,21 +1,23 @@
 from .question import (Question, is_meta, is_new_question)
 
+
 def get_sessions(workbook):
     sessions = {}
 
     date = None
 
-    sheets = [sheet for sheet in workbook.sheetnames if sheet.startswith('Session') and sheet != 'Session 1']
+    sheets = [sheet for sheet in workbook.sheetnames if sheet.startswith(
+        'Session') and sheet != 'Session 1']
 
     for session_name in sheets:
-        ws = workbook[session_name]
+        sheet = workbook[session_name]
 
         questions = []
         question = None
 
-        for row_number in range(1, ws.max_row):
-            cell_q = ws.cell(row=row_number, column=1).value
-            cell_a = ws.cell(row=row_number, column=2).value
+        for row_number in range(1, sheet.max_row):
+            cell_q = sheet.cell(row=row_number, column=1).value
+            cell_a = sheet.cell(row=row_number, column=2).value
 
             if not cell_q and not cell_a:
                 continue
@@ -42,6 +44,5 @@ def get_sessions(workbook):
             'questions': questions,
             'date': date,
         }
-
 
     return sessions

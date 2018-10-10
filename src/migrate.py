@@ -1,34 +1,29 @@
 from src import (transactions, QuestionType)
 
 
-
 def run_migrate():
-  transactions([
-#################
-### meta
-#################
-    '''
+    transactions([
+        #################
+        # meta
+        #################
+        '''
 CREATE TABLE IF NOT EXISTS
   questions
 (
   id CHAR(2) PRIMARY KEY NOT NULL,
   name TEXT
 )
-    ''',
-    '''
+    ''', '''
 INSERT OR IGNORE INTO questions (id, name) VALUES ({}, 'choices')
-    '''.format(QuestionType.types['choices']),
-    '''
+    '''.format(QuestionType.types['choices']), '''
 INSERT OR IGNORE INTO questions (id, name) VALUES ({}, 'choices_images')
-    '''.format(QuestionType.types['choices_images']),
-    '''
+    '''.format(QuestionType.types['choices_images']), '''
 INSERT OR IGNORE INTO questions (id, name) VALUES ({}, 'wordcloud')
     '''.format(QuestionType.types['wordcloud']),
-
-#################
-### sessions
-#################
-    '''
+        #################
+        # sessions
+        #################
+        '''
 CREATE TABLE IF NOT EXISTS
   sessions
 (
@@ -37,8 +32,7 @@ CREATE TABLE IF NOT EXISTS
   name TEXT,
   UNIQUE (date, name) ON CONFLICT REPLACE
 )
-    ''',
-    '''
+    ''', '''
 CREATE TABLE IF NOT EXISTS
   session_questions
 (
@@ -52,8 +46,7 @@ CREATE TABLE IF NOT EXISTS
   FOREIGN KEY (session_id) REFERENCES sessions(id),
   UNIQUE (session_id, question_name) ON CONFLICT REPLACE
 )
-    ''',
-    '''
+    ''', '''
 CREATE TABLE IF NOT EXISTS
   session_answers
 (
@@ -65,10 +58,10 @@ CREATE TABLE IF NOT EXISTS
   FOREIGN KEY (question_id) REFERENCES session_questions(id)
 )
     ''',
-#################
-### voters
-#################
-    '''
+        #################
+        # voters
+        #################
+        '''
 CREATE TABLE IF NOT EXISTS
   voters
 (
@@ -78,8 +71,7 @@ CREATE TABLE IF NOT EXISTS
   voter INTEGER NOT NULL,
   UNIQUE (session, voter) ON CONFLICT REPLACE
 )
-    ''',
-    '''
+    ''', '''
 CREATE TABLE IF NOT EXISTS
   voter_questions
 (
@@ -88,8 +80,7 @@ CREATE TABLE IF NOT EXISTS
   question_type CHAR(2),
   FOREIGN KEY (question_type) REFERENCES questions(id)
 )
-    ''',
-    '''
+    ''', '''
 CREATE TABLE IF NOT EXISTS
   voter_answers
 (
@@ -101,4 +92,4 @@ CREATE TABLE IF NOT EXISTS
   FOREIGN KEY (question_id) REFERENCES voter_questions(id)
 )
     '''
-  ])
+    ])

@@ -16,9 +16,9 @@ sudo pip install -r requirements.txt
 To run:
 
 ```sh
-python3 to-sqlite.py
+python3 main.py
 # or
-python3 to-sqlite.py data/urban-girls-movement-labb-1.xlsx
+python3 main.py data/urban-girls-movement-labb-1.xlsx
 ```
 
 At the moment it only creates/updates a sqlite-db called test.db in the project root

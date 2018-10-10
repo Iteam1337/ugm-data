@@ -1,4 +1,5 @@
-from .sql.transactions import con
+from .sql.transactions import DB_CON as con
+
 
 def insert_sessions(sessions):
     sessions_inserts__meta = []
@@ -36,7 +37,8 @@ def insert_sessions(sessions):
                 ))
 
     # create sessions
-    con.executemany('INSERT INTO sessions (date, name) VALUES (?, ?)', sessions_inserts__meta)
+    con.executemany(
+        'INSERT INTO sessions (date, name) VALUES (?, ?)', sessions_inserts__meta)
     con.commit()
 
     # create session_questions
@@ -76,6 +78,7 @@ def insert_sessions(sessions):
     ''', sessions_inserts__answers)
     con.commit()
 
+
 def insert_voters(voters):
     con.executemany('''
     INSERT OR IGNORE INTO
@@ -105,6 +108,3 @@ def insert_voters(voters):
             ''', (answers[i], voter_id, voters.questions[i - 1][0]))
 
     con.commit()
-
-
-

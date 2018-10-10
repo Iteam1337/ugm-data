@@ -2,6 +2,7 @@ import moment
 
 from .question_type import (QuestionType, get_question_type)
 
+
 class SqlQuestion():
     def __init__(self, from_question):
         meta = from_question.meta
@@ -16,6 +17,24 @@ class SqlQuestion():
         self.respondents = str(meta.get('respondents'))
         self.answers = answers if answers != _type else None
         self.name = str(meta.get('name'))
+
+    def print(self):
+        out = {
+            'date': self.date,
+            'type': self.type,
+            'question': self.question,
+            'respondents': self.respondents,
+            'answers': self.answers,
+            'name': self.name,
+        }
+        return '{}'.format(out)
+
+    def __repr__(self):
+        return self.print()
+
+    def __str__(self):
+        return self.print()
+
 
 class Question():
     handled_types = [
@@ -95,9 +114,9 @@ class Question():
         return self._print()
 
 
-def is_new_question(q):
-    return q and str(q).startswith('Question ')
+def is_new_question(question):
+    return question and str(question).startswith('Question ')
 
-def is_meta(q):
-    return q and str(q) in Question.handled_types
 
+def is_meta(question):
+    return question and str(question) in Question.handled_types
