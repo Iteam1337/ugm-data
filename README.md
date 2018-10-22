@@ -1,4 +1,4 @@
-# Excel-to-sqlite
+# xlsx-to-json
 
 To install:
 
@@ -19,19 +19,4 @@ To run:
 python3 main.py
 # or
 python3 main.py data/urban-girls-movement-labb-1.xlsx
-```
-
-At the moment it only creates/updates a sqlite-db called test.db in the project root
-
-
-To get started with the content:
-
-```sql
-select *
-  from voter_answers as answer
-  left join voter_questions question
-    on answer.question_id = question.id
-  left join voters voter
-    on answer.voter_id = voter.id
-  order by voter.id;
 ```
